@@ -11,6 +11,9 @@ module.exports = app => {
 
   // Retrieve all published Tutorials
   router.get("/join", recuitmens.findAllJoin);
+  // router.get("/futsal", recuitmens.findAllFutsal);
+  router.get("/totUkm", recuitmens.findTotFutsal);
+  router.get("/ukmAll", recuitmens.findAllUkm);
 
   // Retrieve a single Tutorial with id
   // router.get("/:id", recuitmens.findOne);
@@ -19,7 +22,7 @@ module.exports = app => {
   // router.put("/:id", recuitmens.update);
 
   // // Delete a Tutorial with id
-  // router.delete("/:id", recuitmens.delete);
+  router.delete("/:id", recuitmens.delete);
 
   // // Delete all Tutorials
   // router.delete("/", recuitmens.deleteAll);
