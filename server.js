@@ -15,21 +15,28 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-const db = require("./app/models");
-const Role = db.role;
+// const db = require("./app/models");
+// const Role = db.role;
+// const Ukm = db.ukms;
+// const Prodi = db.prodis;
+// const Recuitmen = db.recuitmen;
 
-db.sequelize.sync({force: true}).then(() => {
-    console.log('Drop and Resync Db');
-    // initial();
-});
+// db.sequelize.sync({force: true}).then(() => {
+//     console.log('Drop and Resync Db');
+//     initial();
+// });
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+    res.json({ message: "Welcome to Jayen application." });
 });
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/ukm.routes')(app);
+require('./app/routes/event.routes')(app);
+require('./app/routes/prodi.routes')(app);
+require("./app/routes/recuitmen.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -53,5 +60,35 @@ app.listen(PORT, () => {
 //     Role.create({
 //         id: 3,
 //         name: "admin"
+//     });
+
+//     Ukm.create({
+//         id: 1,
+//         name: "FUTSAL"
+//     });
+
+//     Ukm.create({
+//         id: 2,
+//         name: "DANCE"
+//     });
+
+//     Ukm.create({
+//         id: 3,
+//         name: "ESPRIME"
+//     });
+
+//     Prodi.create({
+//         id: 1,
+//         name: "SI"
+//     });
+
+//     Prodi.create({
+//         id: 2,
+//         name: "IF"
+//     });
+
+//     Prodi.create({
+//         id: 3,
+//         name: "SIA"
 //     });
 // }
