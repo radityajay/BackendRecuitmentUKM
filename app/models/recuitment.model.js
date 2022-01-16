@@ -62,7 +62,33 @@ Recuitmen.getAll = (title, result) => {
 };
 
 Recuitmen.getAllJoin = result => {
-  sql.query("SELECT recuitmens.name, recuitmens.nim, recuitmens.angkatan, recuitmens.noTlp, ukms.name AS ukmId, prodis.name AS prodiId FROM recuitmens JOIN ukms ON recuitmens.id = ukms.id JOIN prodis ON recuitmens.id = prodis.id ORDER BY recuitmens.id DESC;", (err, res) => {
+  sql.query("SELECT recuitmens.*, ukms.name AS ukmId, prodis.name AS prodiId FROM recuitmens JOIN ukms ON ukms.id = recuitmens.ukmId JOIN prodis ON prodis.id = recuitmens.prodiId ORDER BY recuitmens.id DESC", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("recuitmens: ", res);
+    result(null, res);
+  });
+};
+
+Recuitmen.getTotUkm = (ukmName,result) => {
+  sql.query(`SELECT COUNT(recuitmens.id) AS total FROM recuitmens JOIN ukms ON ukms.id = recuitmens.ukmId WHERE ukms.name LIKE '${ukmName}'`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("recuitmens: ", res);
+    result(null, res);
+  });
+};
+
+Recuitmen.getAllUkm = (ukmName,result) => {
+  sql.query(`SELECT recuitmens.*, ukms.name AS nameUkm, prodis.name AS nameProd FROM recuitmens JOIN ukms ON ukms.id = recuitmens.ukmId JOIN prodis ON prodis.id = recuitmens.prodiId WHERE ukms.name LIKE '${ukmName}'`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
